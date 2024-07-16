@@ -16,7 +16,7 @@ function App() {
       <div>
         <h1>Student Portal</h1>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/student/attendance" element={<Attendance />} />
