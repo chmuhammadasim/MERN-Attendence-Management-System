@@ -8,10 +8,12 @@ const adminRoutes = require('./routes/admin');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const accessControl = require('./middlewares/access-controls');
 const bodyParser = require('body-parser');
 const app = express();
 
 app.use(cors());
+app.use(accessControl);
 app.use(
     bodyParser.urlencoded({
       extended: true
@@ -31,11 +33,9 @@ try {
     console.log("Error occured while connecting with mongoDB")
   }
 
-app.use(express.json());
 app.use(helmet());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/student', studentRoutes);
 app.use('/api/teacher', teacherRoutes);
