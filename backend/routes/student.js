@@ -1,7 +1,9 @@
-const router = require('express').Router();
+const express = require('express');
 const studentController = require('../controllers/studentController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const { authMiddleware, roleMiddleware } = require('../middlewares/authMiddleware');
 
-router.get('/attendance/:studentId', authMiddleware, studentController.getAttendance);
+const router = express.Router();
+
+router.get('/attendance', authMiddleware, roleMiddleware(['student']), studentController.getAttendance);
 
 module.exports = router;

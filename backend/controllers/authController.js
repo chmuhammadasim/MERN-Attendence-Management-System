@@ -29,3 +29,25 @@ exports.login = async (req, res) => {
   const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
   res.header('Authorization', token).send(token);
 };
+exports.getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select('-password');
+    res.send(user);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  const { name, email, phone } = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { profile: { name, email, phone } },
+      { new: true }
+    ).select('-password');
+    res.send(updatedUser);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};

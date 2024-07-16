@@ -51,3 +51,35 @@ exports.createSubject = async (req, res) => {
     res.status(400).send(err);
   }
 };
+exports.createClass = async (req, res) => {
+  const { name } = req.body;
+
+  const newClass = new Class({ name });
+  try {
+    const savedClass = await newClass.save();
+    res.send(savedClass);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+exports.createSubject = async (req, res) => {
+  const { name, teacherId } = req.body;
+
+  const newSubject = new Subject({ name, teacher: teacherId });
+  try {
+    const savedSubject = await newSubject.save();
+    res.send(savedSubject);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+exports.getTeachers = async (req, res) => {
+  try {
+    const teachers = await User.find({ role: 'teacher' }).select('username _id');
+    res.send(teachers);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
