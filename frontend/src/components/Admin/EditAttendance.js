@@ -9,7 +9,7 @@ const EditAttendance = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.put('/api/admin/attendance', { attendanceId, status }, {
+      await axios.put('http://localhost:5000/api/admin/attendance', { attendanceId, status }, {
         headers: { Authorization: token }
       });
       alert('Attendance updated');

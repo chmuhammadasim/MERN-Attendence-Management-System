@@ -8,7 +8,7 @@ const CreateClass = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/admin/create-class', { name }, {
+      await axios.post('http://localhost:5000/api/admin/create-class', { name }, {
         headers: { Authorization: token }
       });
       alert('Class created');

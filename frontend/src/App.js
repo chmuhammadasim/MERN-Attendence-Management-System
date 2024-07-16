@@ -1,6 +1,5 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Attendance from './components/Student/Attendance';
@@ -16,17 +15,17 @@ function App() {
     <Router>
       <div>
         <h1>Student Portal</h1>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/student/attendance" component={Attendance} />
-          <Route path="/teacher/attendance" component={MarkAttendance} />
-          <Route path="/admin/assign-class" component={AssignClass} />
-          <Route path="/admin/edit-attendance" component={EditAttendance} />
-          <Route path="/admin/create-class" component={CreateClass} />
-          <Route path="/admin/create-subject" component={CreateSubject} />
-        </Switch>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/student/attendance" element={<Attendance />} />
+          <Route path="/teacher/attendance" element={<MarkAttendance />} />
+          <Route path="/admin/assign-class" element={<AssignClass />} />
+          <Route path="/admin/edit-attendance" element={<EditAttendance />} />
+          <Route path="/admin/create-class" element={<CreateClass />} />
+          <Route path="/admin/create-subject" element={<CreateSubject />} />
+        </Routes>
       </div>
     </Router>
   );

@@ -11,7 +11,7 @@ const CreateSubject = () => {
     const fetchTeachers = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/admin/teachers', {
+        const res = await axios.get('http://localhost:5000/api/admin/teachers', {
           headers: { Authorization: token }
         });
         setTeachers(res.data);
@@ -27,7 +27,7 @@ const CreateSubject = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/admin/create-subject', { name, teacherId }, {
+      await axios.post('http://localhost:5000/api/admin/create-subject', { name, teacherId }, {
         headers: { Authorization: token }
       });
       alert('Subject created');

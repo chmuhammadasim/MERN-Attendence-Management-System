@@ -13,12 +13,14 @@ exports.register = async (req, res) => {
     const savedUser = await user.save();
     res.send(savedUser);
   } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 };
 
 exports.login = async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
   const user = await User.findOne({ username });
   if (!user) return res.status(400).send('Username is wrong');
@@ -28,12 +30,17 @@ exports.login = async (req, res) => {
 
   const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
   res.header('Authorization', token).send(token);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
 };
 exports.getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select('-password');
     res.send(user);
   } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 };
@@ -48,6 +55,7 @@ exports.updateProfile = async (req, res) => {
     ).select('-password');
     res.send(updatedUser);
   } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 };

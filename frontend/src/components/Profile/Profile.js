@@ -8,7 +8,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/auth/profile', {
+        const res = await axios.get('http://localhost:5000/api/auth/profile', {
           headers: { Authorization: token }
         });
         setProfile(res.data);
@@ -24,7 +24,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.put('/api/auth/profile', profile, {
+      await axios.put('http://localhost:3000/api/auth/profile', profile, {
         headers: { Authorization: token }
       });
       alert('Profile updated');

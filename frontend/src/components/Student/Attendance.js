@@ -8,7 +8,7 @@ const Attendance = () => {
     const fetchAttendance = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/student/attendance/:studentId', {
+        const res = await axios.get('http://localhost:5000/api/student/attendance/:studentId', {
           headers: { Authorization: token }
         });
         setAttendance(res.data);

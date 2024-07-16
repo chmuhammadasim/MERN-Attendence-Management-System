@@ -1,6 +1,4 @@
-// app.js
 const express = require('express');
-const connectDB = require('./config/db');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const authRoutes = require('./routes/auth');
@@ -8,16 +6,34 @@ const studentRoutes = require('./routes/student');
 const teacherRoutes = require('./routes/teacher');
 const adminRoutes = require('./routes/admin');
 require('dotenv').config();
-
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
 
-// Connect Database
-connectDB();
+app.use(cors());
+app.use(
+    bodyParser.urlencoded({
+      extended: true
+    })
+  );
+app.use(bodyParser.json());
 
-// Middleware
+
+try {
+    mongoose.connect("mongodb://127.0.0.1:27017/studentPortal", 
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology:true,
+    });
+    console.log(`mongoDB connected successfully on mongodb://127.0.0.1:27017/studentPortal`);
+  } catch (error) {
+    console.log("Error occured while connecting with mongoDB")
+  }
+
 app.use(express.json());
 app.use(helmet());
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 })); // 15 minutes, max 100 requests
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
 // Routes
 app.use('/api/auth', authRoutes);

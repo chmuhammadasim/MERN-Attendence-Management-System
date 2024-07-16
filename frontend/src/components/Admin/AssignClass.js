@@ -9,7 +9,7 @@ const AssignClass = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/admin/assign-class', { classId, studentId }, {
+      await axios.post('http://localhost:5000/api/admin/assign-class', { classId, studentId }, {
         headers: { Authorization: token }
       });
       alert('Class assigned');

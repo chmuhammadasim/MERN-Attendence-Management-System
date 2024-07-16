@@ -11,7 +11,7 @@ const MarkAttendance = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/teacher/attendance', { studentId, classId, date, status }, {
+      await axios.post('http://localhost:5000/api/teacher/attendance', { studentId, classId, date, status }, {
         headers: { Authorization: token }
       });
       alert('Attendance marked');
