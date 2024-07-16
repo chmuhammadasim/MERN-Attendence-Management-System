@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = function (req, res, next) {
+exports.authMiddleware = function (req, res, next) {
   const token = req.header('Authorization');
   if (!token) return res.status(401).send('Access Denied');
 
@@ -11,4 +11,13 @@ module.exports = function (req, res, next) {
   } catch (err) {
     res.status(400).send('Invalid Token');
   }
+};
+
+exports.roleMiddleware = function (roles) {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).send('Access Forbidden');
+    }
+    next();
+  };
 };

@@ -1,4 +1,6 @@
 const Class = require('../models/Class');
+const Subject = require('../models/Subject');
+const User = require('../models/User');
 const Attendance = require('../models/Attendance');
 
 exports.assignClass = async (req, res) => {
@@ -22,6 +24,29 @@ exports.editAttendance = async (req, res) => {
   try {
     const updatedAttendance = await attendance.save();
     res.send(updatedAttendance);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+exports.createClass = async (req, res) => {
+  const { name } = req.body;
+
+  const newClass = new Class({ name });
+  try {
+    const savedClass = await newClass.save();
+    res.send(savedClass);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+exports.createSubject = async (req, res) => {
+  const { name, teacherId } = req.body;
+
+  const newSubject = new Subject({ name, teacher: teacherId });
+  try {
+    const savedSubject = await newSubject.save();
+    res.send(savedSubject);
   } catch (err) {
     res.status(400).send(err);
   }
